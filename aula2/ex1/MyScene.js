@@ -23,6 +23,8 @@ class MyScene extends CGFscene {
         this.axis = new CGFaxis(this);
         this.triangle = new MyTriangle(this);
         this.parallelogram= new MyParallelogram(this);
+        this.diamond= new MyDiamond(this);
+        this.tangram = new MyTangram(this);
 
         //Objects connected to MyInterface
         this.displayAxis = true;
@@ -71,28 +73,9 @@ class MyScene extends CGFscene {
                    
         this.multMatrix(sca);
         // ---- BEGIN Primitive drawing section
-        this.pushMatrix();
-        this.scale(2,2,1);
-        this.triangle.display();
-        this.popMatrix();
+       
+        this.tangram.display();
 
-        this.pushMatrix();
-        this.scale(1.5,1,1);
-        this.translate(-1,0,0);
-        this.rotate(Math.PI,0,0,1);
-        this.triangle.display();
-        this.popMatrix();
-
-        
-        this.pushMatrix();
-        this.translate(-3,0,0);
-        this.triangle.display();
-        this.popMatrix();
-
-        this.pushMatrix();
-        this.rotate(Math.PI,1,0,0);
-        this.parallelogram.display();
-        this.popMatrix();
             /*
             push
             desenhar o que queremos
