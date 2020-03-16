@@ -12,13 +12,20 @@ class MyTriangle extends CGFobject {
 		this.vertices = [
 			-1, 0, 0,	//0		XA,YA,ZA
 			1, 0, 0,	//1		XB,YB,ZB
-			0, 1, 0,	//2
+			0, 1, 0	//2
+			
 		];
 
 		//Counter-clockwise reference of vertices
 		this.indices = [
 			0, 1, 2,	// indices dos vertices acima
 		];
+		this.normals=[
+			0,0,1,
+			0,0,1,
+			0,0,1
+		];
+		
 /*anti horario-> parte da frente
 sentido horario -> parte de trás  */ 
 		//The defined indices (and corresponding vertices)

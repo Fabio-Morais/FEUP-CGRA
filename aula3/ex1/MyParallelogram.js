@@ -13,16 +13,23 @@ class MyParallelogram extends CGFobject {
 			0, 0, 0,	//0		XA,YA,ZA
 			1, 1, 0,	//1		XB,YB,ZB
             3, 1, 0,	//2
-            2, 0, 0,	//3
+            2, 0, 0	//3
 		];
 
 		//Counter-clockwise reference of vertices
 		this.indices = [
             0, 1, 2,	// indices dos vertices acima
             0, 2, 3,	// indices dos vertices acima
-            3, 2, 1,	// indices dos vertices acima
-            1, 0, 3,	// indices dos vertices acima
+            0, 2, 1,	// indices dos vertices acima
+            0, 3, 2	// indices dos vertices acima
 		];
+		this.normals=[
+			0,0,-1,
+			0,0,-1,
+			0,0,-1,
+			0,0,-1
+		];
+		
 /*anti horario-> parte da frente
 sentido horario -> parte de trás  */ 
 		//The defined indices (and corresponding vertices)

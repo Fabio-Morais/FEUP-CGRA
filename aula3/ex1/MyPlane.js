@@ -52,7 +52,7 @@ class MyPlane extends CGFobject {
         for (var i = 0; i <= 2 * this.nDivs + 1; i++) {
             this.normals.push(0, 0, 1);
         }
-
+       
         this.primitiveType = this.scene.gl.TRIANGLE_STRIP;
         this.initGLBuffers();
     }
