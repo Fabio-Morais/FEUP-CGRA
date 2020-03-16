@@ -126,6 +126,13 @@ class MyScene extends CGFscene {
         // Custom material (can be changed in the interface)
         // initially midrange values on ambient, diffuse and specular, on R, G and B respectively
 
+        // Madeira (no ambient, no specular)
+        this.madeira = new CGFappearance(this);
+        this.madeira.setAmbient(...this.hexToRgbA('#8b5a2b'));
+        this.madeira.setSpecular(0.2, 0, 0, 1.0);
+        this.madeira.setShininess(10.0);
+
+
         this.customMaterialValues = {
             'Ambient': '#0000ff',
             'Diffuse': '#ff0000',
@@ -136,10 +143,10 @@ class MyScene extends CGFscene {
 
         this.updateCustomMaterial();
 
-        this.materials = [this.material1, this.material2, this.material3, this.customMaterial];
+        this.materials = [this.material1, this.material2, this.material3, this.customMaterial, this.madeira];
 
         // Labels and ID's for object selection on MyInterface
-        this.materialIDs = {'Red Ambient': 0, 'Red Diffuse': 1, 'Red Specular': 2, 'Custom': 3 };
+        this.materialIDs = {'Red Ambient': 0, 'Red Diffuse': 1, 'Red Specular': 2, 'Custom': 3, 'Madeira':4 };
     }
     display() {
         this.setGlobalAmbientLight(this.intens, this.intens, this.intens, 1.0);
