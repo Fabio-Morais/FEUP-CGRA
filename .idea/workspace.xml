@@ -7,8 +7,16 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="MERGE" />
   </component>
   <component name="ProjectId" id="1ZPFDW1StkCCJt8jIZJ2RJiQoWY" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -32,7 +40,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1584732702890</updated>
-      <workItem from="1584732706763" duration="2614000" />
+      <workItem from="1584732706763" duration="7033000" />
     </task>
     <servers />
   </component>
@@ -40,6 +48,10 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="492" y="280" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1584744429461">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="492" y="280" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1366.728/1366.0.1366.728@0.0.1366.728" timestamp="1584744429461" />
     <state x="1718" y="0" width="661" height="728" key="find.popup" timestamp="1584742347466">
       <screen x="1366" y="0" width="1366" height="728" />
     </state>

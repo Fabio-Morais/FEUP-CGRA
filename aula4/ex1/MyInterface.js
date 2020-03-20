@@ -20,6 +20,7 @@ class MyInterface extends CGFinterface {
         this.gui.add(this.scene, 'displayAxis').name('Display Axis');
         this.gui.add(this.scene, 'displayMyQuad').name('Display MyQuad');
         this.gui.add(this.scene, 'displayMyTangram').name('Display MyTangram');
+        this.gui.add(this.scene, 'filterLine').name('Filter');
         this.gui.add(this.scene, 'scaleFactor', 0.1, 10.0).name('Scale');
 
 
