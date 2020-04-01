@@ -51,11 +51,11 @@ class ShaderScene extends CGFscene {
 		this.appearance.setSpecular(0.0, 0.0, 0.0, 1);
 		this.appearance.setShininess(120);
 
-		this.texture = new CGFtexture(this, "textures/texture.jpg");
+		this.texture = new CGFtexture(this, "textures/waterTex.jpg");
 		this.appearance.setTexture(this.texture);
 		this.appearance.setTextureWrap('REPEAT', 'REPEAT');
 
-		this.texture2 = new CGFtexture(this, "textures/FEUP.jpg");
+		this.texture2 = new CGFtexture(this, "textures/waterMap.jpg");
 
 		// shaders initialization
 
@@ -71,7 +71,9 @@ class ShaderScene extends CGFscene {
 			new CGFshader(this.gl, "shaders/texture1.vert", "shaders/convolution.frag"),
 			new CGFshader(this.gl, "shaders/ex1_1.vert", "shaders/ex1_1.frag"),
 			new CGFshader(this.gl, "shaders/ex1_2.vert", "shaders/ex1_2.frag"),
-			new CGFshader(this.gl, "shaders/ex1_3.vert", "shaders/ex1_3.frag")
+			new CGFshader(this.gl, "shaders/ex1_3.vert", "shaders/ex1_3.frag"),
+			new CGFshader(this.gl, "shaders/water.vert", "shaders/water.frag")
+
 
 		];
 
@@ -82,6 +84,9 @@ class ShaderScene extends CGFscene {
 		this.testShaders[6].setUniformsValues({ timeFactor: 0 });
 		this.testShaders[10].setUniformsValues({ timeFactor: 0 });
 		this.testShaders[11].setUniformsValues({ timeFactor: 0 });
+		this.testShaders[12].setUniformsValues({ uSampler2: 1 });
+		this.testShaders[12].setUniformsValues({ timeFactor: 0 });
+
 
 
 		// Shaders interface variables
@@ -98,7 +103,8 @@ class ShaderScene extends CGFscene {
 			'Convolution': 8,
 			'ex1_1': 9,
 			'ex1_2': 10,
-			'ex1_3': 11
+			'ex1_3': 11,
+			'water': 12
 		};
 
 		// shader code panels references
@@ -185,6 +191,8 @@ class ShaderScene extends CGFscene {
 			this.testShaders[10].setUniformsValues({ timeFactor: t / 100 % 1000 });
 		else if (this.selectedExampleShader == 11)
 			this.testShaders[11].setUniformsValues({ timeFactor: t / 100 % 1000 });
+		else if (this.selectedExampleShader == 12)
+			this.testShaders[12].setUniformsValues({ timeFactor: t / 100 % 1000 });
 	}
 
 	// main display function
