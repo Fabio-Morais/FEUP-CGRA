@@ -84,11 +84,14 @@ class MyScene extends CGFscene {
     //Function that resets selected texture in quadMaterial
     updateAppliedTexture() {
         this.quadMaterial.setTexture(this.textures[this.selectedTexture]);
+        console.log("ola");
+
     }
 
     //Function that updates wrapping mode in quadMaterial
     updateTextureWrapping() {
         this.quadMaterial.setTextureWrap(this.wrappingMethods[this.wrapS], this.wrappingMethods[this.wrapT]);
+
     }
 
     //Function that updates texture coordinates in MyQuad

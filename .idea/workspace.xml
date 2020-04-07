@@ -28,8 +28,13 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/projeto/proj" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\fabio\Documents\GitHub\FEUP-CGRA\projeto\proj" />
+    </key>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -46,6 +51,12 @@
       <workItem from="1585155625794" duration="1480000" />
       <workItem from="1585170999100" duration="5688000" />
       <workItem from="1585674534198" duration="11075000" />
+      <workItem from="1585994993426" duration="6537000" />
+      <workItem from="1586025635455" duration="3542000" />
+      <workItem from="1586096440290" duration="5095000" />
+      <workItem from="1586165917881" duration="1001000" />
+      <workItem from="1586190336643" duration="2787000" />
+      <workItem from="1586206930622" duration="4492000" />
     </task>
     <servers />
   </component>

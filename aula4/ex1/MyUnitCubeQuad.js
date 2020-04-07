@@ -34,7 +34,6 @@ class MyUnitCubeQuad extends CGFobject {
 
         if(this.scene.filterLine) {
             this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.LINEAR);
-            console.log("as");
         }else{
             this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
 
@@ -67,7 +66,6 @@ class MyUnitCubeQuad extends CGFobject {
 
         if(this.scene.filterLine) {
             this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.LINEAR);
-            console.log("as");
         }else{
             this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
 
@@ -84,7 +82,6 @@ class MyUnitCubeQuad extends CGFobject {
 
         if(this.scene.filterLine) {
             this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.LINEAR);
-            console.log("as");
         }else{
             this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
 
