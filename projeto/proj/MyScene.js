@@ -26,12 +26,18 @@ class MyScene extends CGFscene {
 
         //Initialize scene objects
         this.axis = new CGFaxis(this);
-        this.incompleteSphere = new MySphere(this, 16, 8);
+        this.incompleteSphere = new MySphere(this, 30, 10);
         this.skybox = new MyCubeMap(this, 150);
-        this.cube = new MyUnitCube(this);
+        this.cube = new MyVehicle(this);
+        this.cyl = new MyCylinder(this,50);
 
         //Objects connected to MyInterface
         this.displayAxis = true;
+        this.displayNormals = false;
+        this.displayCyl= false;
+        this.displayVei=false;
+        this.displayTextures=true;
+        this.displaySphere=true;
         this.selectedTexture = 0;
         this.speedFactor=1;
         this.scaleFactor=1;
@@ -39,6 +45,7 @@ class MyScene extends CGFscene {
         this.textureIds = { 'Sky': 0, 'Green': 1};
 
     }
+
     initMaterials() {
         this.skybox_day = new CGFappearance(this);
         this.skybox_day.setAmbient(1, 1, 1, 1);
@@ -47,6 +54,22 @@ class MyScene extends CGFscene {
         this.skybox_day.setShininess(150.0);
         this.skybox_day.loadTexture('images/cubemap.png');
         this.skybox_day.setTextureWrap('REPEAT', 'REPEAT');
+
+        this.marble = new CGFappearance(this);
+        this.marble.setAmbient(1, 1, 1, 1);
+        this.marble.setDiffuse(1, 1, 1, 1);
+        this.marble.setSpecular(0, 0, 0, 1);
+        this.marble.setShininess(10.0);
+        this.marble.loadTexture('images/split_cubemap/bottom.png');
+        this.marble.setTextureWrap('REPEAT', 'REPEAT');
+
+        this.earth = new CGFappearance(this);
+        this.earth.setAmbient(1, 1, 1, 1);
+        this.earth.setDiffuse(1, 1, 1, 1);
+        this.earth.setSpecular(0, 0, 0, 1);
+        this.earth.setShininess(10.0);
+        this.earth.loadTexture('images/earth.jpg');
+        this.earth.setTextureWrap('REPEAT', 'REPEAT');
     }
         initLights() {
         this.lights[0].setPosition(15, 2, 5, 1);
@@ -88,6 +111,10 @@ class MyScene extends CGFscene {
             text+="S";
             keysPressed=true;
         }
+        if (this.gui.isKeyPressed("KeyR")) {
+            text+="R";
+            keysPressed=true;
+        }
         this.cube.update(text, this.speedFactor);
         if (keysPressed)
             console.log(text);
@@ -97,7 +124,6 @@ class MyScene extends CGFscene {
     // called periodically (as per setUpdatePeriod() in init())
     update(t){
         this.checkKeys();
-        //To be done...
     }
 
     display() {
@@ -110,7 +136,10 @@ class MyScene extends CGFscene {
         this.loadIdentity();
         // Apply transformations corresponding to the camera position relative to the origin
         this.applyViewMatrix();
-        
+        if(this.displayTextures)
+            this.enableTextures(true);
+        else
+            this.enableTextures(false);
         // Draw axis
         if (this.displayAxis)
             this.axis.display();
@@ -120,20 +149,21 @@ class MyScene extends CGFscene {
         // ---- BEGIN Primitive drawing section
 
         //This sphere does not have defined texture coordinates
-        //this.incompleteSphere.display();
-       /* this.pushMatrix();
-        this.scale(50,50,50);
-        this.translate(0,0,-0.5);
-        this.cube.display();
-        this.popMatrix()*/
-        this.pushMatrix();
-        this.scale(this.scaleFactor, this.scaleFactor, this.scaleFactor);
-        this.cube.display(this.scaleFactor);
-        this.popMatrix();
+        if(this.displaySphere){
+            this.earth.apply();
+            this.incompleteSphere.display();
+        }
 
-        this.pushMatrix();
+       if(this.displayVei) {
+           this.pushMatrix();
+           this.scale(this.scaleFactor, this.scaleFactor, this.scaleFactor);
+           this.cube.display(this.scaleFactor);
+           this.popMatrix();
+       }
+
+        /*this.pushMatrix();
         this.incompleteSphere.display();
-        this.popMatrix();
+        this.popMatrix();*/
 
         this.pushMatrix();
         this.skybox_day.apply();
@@ -141,6 +171,17 @@ class MyScene extends CGFscene {
         this.skybox.display();
         this.popMatrix();
 
+        if (this.displayNormals)
+            this.cube.enableNormalViz();
+        else
+            this.cube.disableNormalViz();
+
+        if(this.displayCyl){
+            this.pushMatrix();
+            this.marble.apply();
+            this.cyl.display();
+            this.popMatrix();
+        }
         // ---- END Primitive drawing section
     }
 }
