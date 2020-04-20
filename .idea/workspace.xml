@@ -28,11 +28,15 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/projeto/proj" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/projeto/proj/formas" />
+    <property name="settings.editor.selected.configurable" value="copyright" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\fabio\Documents\GitHub\FEUP-CGRA\projeto\proj\formas" />
+      <recent name="C:\Users\fabio\Documents\GitHub\FEUP-CGRA\projeto\proj" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\fabio\Documents\GitHub\FEUP-CGRA\projeto\proj" />
     </key>
   </component>
@@ -59,6 +63,10 @@
       <workItem from="1586206930622" duration="4492000" />
       <workItem from="1586792241750" duration="1666000" />
       <workItem from="1587055013379" duration="11129000" />
+      <workItem from="1587119477908" duration="1559000" />
+      <workItem from="1587331104971" duration="10414000" />
+      <workItem from="1587375412584" duration="52000" />
+      <workItem from="1587416908889" duration="6694000" />
     </task>
     <servers />
   </component>
@@ -66,19 +74,20 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="184" y="6" key="SettingsEditor" timestamp="1585155570458">
+    <state x="184" y="6" key="SettingsEditor" timestamp="1587119551644">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
+    <state x="184" y="6" key="SettingsEditor/0.0.1366.728/1366.0.1366.728@0.0.1366.728" timestamp="1587119551644" />
     <state x="184" y="6" key="SettingsEditor/0.0.1366.728@0.0.1366.728" timestamp="1585155570458" />
     <state x="492" y="280" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1584744429461">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="492" y="280" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1366.728/1366.0.1366.728@0.0.1366.728" timestamp="1584744429461" />
-    <state x="352" y="0" width="661" height="728" key="find.popup" timestamp="1587057719898">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state x="1718" y="0" width="661" height="728" key="find.popup" timestamp="1587342170396">
+      <screen x="1366" y="0" width="1366" height="728" />
     </state>
     <state x="352" y="0" width="661" height="728" key="find.popup/0.0.1366.728/1366.0.1366.728@0.0.1366.728" timestamp="1587057719898" />
-    <state x="1718" y="0" width="661" height="728" key="find.popup/0.0.1366.728/1366.0.1366.728@1366.0.1366.728" timestamp="1584742347466" />
+    <state x="1718" y="0" width="661" height="728" key="find.popup/0.0.1366.728/1366.0.1366.728@1366.0.1366.728" timestamp="1587342170396" />
     <state x="1705" y="162" key="run.anything.popup" timestamp="1585173397589">
       <screen x="1366" y="0" width="1366" height="728" />
     </state>

@@ -10,7 +10,6 @@ class MyScene extends CGFscene {
         super.init(application);
         this.initCameras();
         this.initLights();
-        this.initMaterials();
         //Background color
         this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
 
@@ -30,38 +29,35 @@ class MyScene extends CGFscene {
         this.skybox = new MyCubeMap(this, 150);
         this.cube = new MyVehicle(this);
         this.cyl = new MyCylinder(this,50);
+        this.materials = new Material(this);
 
+        this.text="";
+        this.speedLimit=4;
+        this.speed=0;
+        this.rotateHelice=0;
         //Objects connected to MyInterface
+        this.interface();
+
+        this.initMaterials();
+    }
+    interface(){
         this.displayAxis = true;
         this.displayNormals = false;
         this.displayCyl= false;
-        this.displayVei=false;
+        this.displayVei=true;
         this.displayTextures=true;
-        this.displaySphere=true;
+        this.displaySphere=false;
         this.selectedTexture = 0;
         this.speedFactor=1;
         this.scaleFactor=1;
         this.textures = [this.texture1, this.texture2, this.texture3];
         this.textureIds = { 'Sky': 0, 'Green': 1};
-
     }
 
     initMaterials() {
-        this.skybox_day = new CGFappearance(this);
-        this.skybox_day.setAmbient(1, 1, 1, 1);
-        this.skybox_day.setDiffuse(1, 1, 1, 1);
-        this.skybox_day.setSpecular(0, 0, 0, 1);
-        this.skybox_day.setShininess(150.0);
-        this.skybox_day.loadTexture('images/cubemap.png');
-        this.skybox_day.setTextureWrap('REPEAT', 'REPEAT');
+        this.skybox_day = this.materials.skyBox();
 
-        this.marble = new CGFappearance(this);
-        this.marble.setAmbient(1, 1, 1, 1);
-        this.marble.setDiffuse(1, 1, 1, 1);
-        this.marble.setSpecular(0, 0, 0, 1);
-        this.marble.setShininess(10.0);
-        this.marble.loadTexture('images/split_cubemap/bottom.png');
-        this.marble.setTextureWrap('REPEAT', 'REPEAT');
+
 
         this.earth = new CGFappearance(this);
         this.earth.setAmbient(1, 1, 1, 1);
@@ -92,38 +88,54 @@ class MyScene extends CGFscene {
 
     }
     checkKeys() {
-        var text="";
         var keysPressed=false;
+        this.cube.resetRotate();
+
         // Check for key codes e.g. in https://keycode.info/
         if (this.gui.isKeyPressed("KeyW")) {
-            text+="W";
+            this.text+="W";
+            if(this.speed < this.speedLimit)
+            {
+                this.speed+=0.1;
+                this.speed*=1.1;
+            }
+            else if(this.speed > this.speedLimit)
+                this.speed = this.speedLimit;
             keysPressed=true;
         }
         if (this.gui.isKeyPressed("KeyA")) {
-            text+="A";
+            this.text+="A";
             keysPressed=true;
         }
         if (this.gui.isKeyPressed("KeyD")) {
-            text+="D";
+            this.text+="D";
             keysPressed=true;
         }
         if (this.gui.isKeyPressed("KeyS")) {
-            text+="S";
+            this.text+="S";
+            if(this.speed > 0)
+                this.speed-=0.1;
+            else
+                this.speed=0;
             keysPressed=true;
         }
         if (this.gui.isKeyPressed("KeyR")) {
-            text+="R";
+            this.text+="R";
+            this.speed=0;
             keysPressed=true;
         }
-        this.cube.update(text, this.speedFactor);
+        console.log("velocidade:" +this.speed);
         if (keysPressed)
-            console.log(text);
+            console.log(this.text);
+        this.cube.update(this.text, this.speed*(this.speedFactor/2));
+        this.text="";
     }
 
 
     // called periodically (as per setUpdatePeriod() in init())
     update(t){
         this.checkKeys();
+        this.rotateHelice = t / 100 % 1000;
     }
 
     display() {
@@ -157,7 +169,7 @@ class MyScene extends CGFscene {
        if(this.displayVei) {
            this.pushMatrix();
            this.scale(this.scaleFactor, this.scaleFactor, this.scaleFactor);
-           this.cube.display(this.scaleFactor);
+           this.cube.display(this.rotateHelice);
            this.popMatrix();
        }
 
@@ -178,7 +190,6 @@ class MyScene extends CGFscene {
 
         if(this.displayCyl){
             this.pushMatrix();
-            this.marble.apply();
             this.cyl.display();
             this.popMatrix();
         }
