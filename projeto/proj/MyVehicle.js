@@ -7,6 +7,8 @@ class MyVehicle extends CGFobject {
     constructor(scene) {
         super(scene);
         this.vehic = new MyVehicleFormat(this.scene);
+        this.flag = new MyFlag(this.scene);
+
         this.x=0;
         this.y=0;
         this.z=0;
@@ -14,7 +16,11 @@ class MyVehicle extends CGFobject {
         this.angle=0;
         this.rotate=0;
         this.t=0;
+        this.texture2 = new CGFtexture(this.scene, "images/waterMap.jpg");
 
+        this.testShaders = new CGFshader(this.scene.gl, "shaders/water.vert", "shaders/water.frag");
+        this.testShaders.setUniformsValues({ uSampler2: 1 });
+        this.testShaders.setUniformsValues({ timeFactor: 0 });
     }
     enableNormalViz() {
 
@@ -27,14 +33,28 @@ class MyVehicle extends CGFobject {
         this.rotate=0;
     }
     display(rotateHelice) {
+
         this.scene.pushMatrix();
         this.scene.translate(this.x,this.y, this.z);
         this.scene.rotate(this.angle, 0,1,0);
-        this.scene.rotate(this.inclina, 1,0,0);
-        this.scene.rotate(this.inclinaLados, 0,0,1);
-        this.scene.rotate(Math.PI/2, 1,0,0);
-        this.vehic.display(this.rotate, this.speed*(rotateHelice*10));
 
+            this.scene.pushMatrix();
+            this.scene.rotate(this.inclina, 1,0,0);
+            this.scene.rotate(this.inclinaLados, 0,0,1);
+            this.scene.rotate(Math.PI/2, 1,0,0);
+            this.vehic.display(this.rotate, this.speed*(rotateHelice*10));
+            this.scene.popMatrix();
+
+            this.scene.setActiveShader(this.testShaders);
+            this.texture2.bind(1);
+
+            this.scene.pushMatrix();
+            this.scene.translate(0,0,-3.5);
+            this.scene.scale(1.5,1.5,1.5)
+            this.scene.rotate(Math.PI/2,0,1,0);
+            this.flag.display(this.testShaders, this.speed);
+            this.scene.popMatrix();
+            this.scene.setActiveShader(this.scene.defaultShader);
         this.scene.popMatrix();
 
     }

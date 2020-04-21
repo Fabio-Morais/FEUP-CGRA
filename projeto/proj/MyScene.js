@@ -21,13 +21,17 @@ class MyScene extends CGFscene {
         this.enableTextures(true);
 
         this.texture1 = new CGFtexture(this, 'images/cubemap.png');
-        this.texture2 = new CGFtexture(this, 'images/cubemap2.jpg');
+        this.texture22 = new CGFtexture(this, 'images/cubemap2.jpg');
+
+
+        // shader code panels references
+
 
         //Initialize scene objects
         this.axis = new CGFaxis(this);
         this.incompleteSphere = new MySphere(this, 30, 10);
-        this.skybox = new MyCubeMap(this, 150);
-        this.cube = new MyVehicle(this);
+        this.skybox = new MyCubeMap(this);
+        this.vehicle = new MyVehicle(this);
         this.cyl = new MyCylinder(this,50);
         this.materials = new Material(this);
 
@@ -47,17 +51,21 @@ class MyScene extends CGFscene {
         this.displayVei=true;
         this.displayTextures=true;
         this.displaySphere=false;
+        this.thirdPerson = false;
         this.selectedTexture = 0;
         this.speedFactor=1;
         this.scaleFactor=1;
-        this.textures = [this.texture1, this.texture2, this.texture3];
+        this.textures = [this.texture1, this.texture22];
         this.textureIds = { 'Sky': 0, 'Green': 1};
     }
 
     initMaterials() {
         this.skybox_day = this.materials.skyBox();
-
-
+        this.default = new CGFappearance(this);
+        this.default.setAmbient(1, 1, 1, 1);
+        this.default.setDiffuse(1, 1, 1, 1);
+        this.default.setSpecular(0, 0, 0, 1);
+        this.default.setShininess(10.0);
 
         this.earth = new CGFappearance(this);
         this.earth.setAmbient(1, 1, 1, 1);
@@ -89,7 +97,7 @@ class MyScene extends CGFscene {
     }
     checkKeys() {
         var keysPressed=false;
-        this.cube.resetRotate();
+        this.vehicle.resetRotate();
 
         // Check for key codes e.g. in https://keycode.info/
         if (this.gui.isKeyPressed("KeyW")) {
@@ -127,7 +135,7 @@ class MyScene extends CGFscene {
         console.log("velocidade:" +this.speed);
         if (keysPressed)
             console.log(this.text);
-        this.cube.update(this.text, this.speed*(this.speedFactor/2));
+        this.vehicle.update(this.text, this.speed*(this.speedFactor/2));
         this.text="";
     }
 
@@ -136,9 +144,23 @@ class MyScene extends CGFscene {
     update(t){
         this.checkKeys();
         this.rotateHelice = t / 100 % 1000;
+        this.vehicle.testShaders.setUniformsValues({ timeFactor: ((t) / (100-5*(this.speed*this.speedFactor)) % 8) });
+        console.log("0.1t= "+ (t / 40 % 8))
+        console.log("sin(0.1t)= "+Math.sin(t*0.1))
+        /*
+        * 100 ou 50
+        * ~100----1
+        *  50 -----x
+        * 100 - 10*velocidade
+        * */
     }
 
     display() {
+        if(this.thirdPerson){
+            this.camera.setPosition([(this.vehicle.x+5) - 32 * Math.sin(this.vehicle.angle) , this.vehicle.y+15, this.vehicle.z - 32*Math.cos(this.vehicle.angle)]);
+            this.camera.setTarget([this.vehicle.x, this.vehicle.y, this.vehicle.z]);
+
+        }
         // ---- BEGIN Background, camera and axis setup
         // Clear image and depth buffer everytime we update the scene
         this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height);
@@ -148,6 +170,7 @@ class MyScene extends CGFscene {
         this.loadIdentity();
         // Apply transformations corresponding to the camera position relative to the origin
         this.applyViewMatrix();
+
         if(this.displayTextures)
             this.enableTextures(true);
         else
@@ -169,13 +192,9 @@ class MyScene extends CGFscene {
        if(this.displayVei) {
            this.pushMatrix();
            this.scale(this.scaleFactor, this.scaleFactor, this.scaleFactor);
-           this.cube.display(this.rotateHelice);
+           this.vehicle.display(this.rotateHelice);
            this.popMatrix();
        }
-
-        /*this.pushMatrix();
-        this.incompleteSphere.display();
-        this.popMatrix();*/
 
         this.pushMatrix();
         this.skybox_day.apply();
@@ -184,9 +203,9 @@ class MyScene extends CGFscene {
         this.popMatrix();
 
         if (this.displayNormals)
-            this.cube.enableNormalViz();
+            this.vehicle.enableNormalViz();
         else
-            this.cube.disableNormalViz();
+            this.vehicle.disableNormalViz();
 
         if(this.displayCyl){
             this.pushMatrix();
