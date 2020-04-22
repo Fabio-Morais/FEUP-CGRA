@@ -34,7 +34,6 @@ class MyScene extends CGFscene {
         this.vehicle = new MyVehicle(this);
         this.cyl = new MyCylinder(this,50);
         this.materials = new Material(this);
-        this.supply = new MySupply(this);
 
         this.text="";
         this.speedLimit=4;
@@ -83,7 +82,7 @@ class MyScene extends CGFscene {
         this.lights[0].update();
     }
     initCameras() {
-        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(25, 35, 5), vec3.fromValues(0, 0, 0));
+        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(30,50, 30), vec3.fromValues(0, 0, 0));
     }
     setDefaultAppearance() {
         this.setAmbient(1, 1, 1, 1.0);
@@ -131,12 +130,18 @@ class MyScene extends CGFscene {
         if (this.gui.isKeyPressed("KeyR")) {
             this.text+="R";
             this.speed=0;
+            this.vehicle.reset();
+
             keysPressed=true;
         }
         if (this.gui.isKeyPressed("KeyL")) {
             this.text+="L";
             this.dropPosition = [this.vehicle.x,this.vehicle.z];
-            this.supply.drop(this.dropPosition);
+            if(this.vehicle.supply[this.vehicle.supplyPointer].state === this.vehicle.supply[this.vehicle.supplyPointer].SupplyStates.INACTIVE)
+            {
+                this.vehicle.nSuppliesDelivered++;
+                this.vehicle.supply[this.vehicle.supplyPointer].drop(this.dropPosition);
+            }
             keysPressed=true;
         }
         console.log("velocidade:" +this.speed);
@@ -152,8 +157,16 @@ class MyScene extends CGFscene {
         this.checkKeys();
         this.rotateHelice = t / 100 % 1000;
         this.vehicle.testShaders.setUniformsValues({ timeFactor: ((t) / (100-5*(this.speed*this.speedFactor)) % 8) });
-        if(this.supply.state===this.supply.SupplyStates.FALLING){
-            this.supply.land()
+
+        if(this.vehicle.supply[this.vehicle.supplyPointer].state===this.vehicle.supply[this.vehicle.supplyPointer].SupplyStates.FALLING){
+            this.vehicle.supply[this.vehicle.supplyPointer].land();
+        }
+
+       /* if(this.vehicle.supply[this.vehicle.supplyPointer].y< 7.5 && this.vehicle.supplyPointer < 4 && this.vehicle.supply[this.vehicle.supplyPointer].state === this.vehicle.supply[this.vehicle.supplyPointer].SupplyStates.FALLING){
+            this.vehicle.supplyPointer++;
+        }*/
+        if( this.vehicle.supplyPointer <4 && this.vehicle.supply[this.vehicle.supplyPointer].state === this.vehicle.supply[this.vehicle.supplyPointer].SupplyStates.LANDED){
+            this.vehicle.supplyPointer++;
         }
         /*
         * 100 ou 50
@@ -165,7 +178,7 @@ class MyScene extends CGFscene {
 
     display() {
         if(this.thirdPerson){
-            this.camera.setPosition([(this.vehicle.x+5) - 32 * Math.sin(this.vehicle.angle) , this.vehicle.y+40, (this.vehicle.z+8) - 25*Math.cos(this.vehicle.angle)]);
+            this.camera.setPosition([-(this.vehicle.x + 50 * Math.sin(this.vehicle.angle)) , this.vehicle.y+40 , -(this.vehicle.z + 35*Math.cos(this.vehicle.angle))]);
             this.camera.setTarget([this.vehicle.x, this.vehicle.y, this.vehicle.z]);
 
         }
@@ -221,8 +234,6 @@ class MyScene extends CGFscene {
             this.popMatrix();
         }
         // ---- END Primitive drawing section
-        this.pushMatrix();
-        this.supply.display();
-        this.popMatrix();
+
     }
 }

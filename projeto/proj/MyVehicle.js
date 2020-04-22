@@ -8,6 +8,9 @@ class MyVehicle extends CGFobject {
         super(scene);
         this.vehic = new MyVehicleFormat(this.scene);
         this.flag = new MyFlag(this.scene);
+        this.supply = [new MySupply(this.scene),new MySupply(this.scene),new MySupply(this.scene),new MySupply(this.scene),new MySupply(this.scene) ] ;
+        this.supplyPointer=0;
+        this.nSuppliesDelivered=0;
 
         this.x=0;
         this.y=0;
@@ -57,7 +60,14 @@ class MyVehicle extends CGFobject {
             this.scene.popMatrix();
             this.scene.setActiveShader(this.scene.defaultShader);
         this.scene.popMatrix();
+        for(this.i=0; this.i<this.nSuppliesDelivered; this.i++){
+                this.scene.pushMatrix();
+                this.supply[this.i].display();
+                this.scene.popMatrix();
 
+
+
+        }
     }
 
     update(key, speed) {
@@ -87,14 +97,19 @@ class MyVehicle extends CGFobject {
 
         }
 
-        if(key.charAt(i) == 'R'){
-            this.x=0;
-            this.y=0;
-            this.z=0;
-            this.angle=0;
 
-        }
     }
+    }
+    reset(){
+        this.x=0;
+        this.y=0;
+        this.z=0;
+        this.angle=0;
+        for(this.i=0; this.i<5; this.i++){
+            this.supply[this.i].state=0;
+        }
+        this.nSuppliesDelivered=0;
+        this.supplyPointer=0;
     }
     enableNormalViz(){
         this.vehic.enableNormalViz();

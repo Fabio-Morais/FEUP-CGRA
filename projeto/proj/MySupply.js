@@ -54,12 +54,12 @@ class MySupply extends CGFobject {
         if(this.y<=0 && this.SupplyStates.FALLING){
             this.state= this.SupplyStates.LANDED;
         }else
-            this.y-=0.1416666667; // 50ms * 7.5 /32 = 0.125
+            this.y-=0.5; // 50ms * 7.5 /32 = 0.1416666667
 
     }
 
     display() {
-        console.log(this.x+"-"+this.y+"-"+this.z+ " ---> "+ this.state)
+        //console.log(this.x+"-"+this.y+"-"+this.z+ " ---> "+ this.state)
         if(this.state == this.SupplyStates.FALLING){
             this.close.apply()
             this.scene.pushMatrix();
