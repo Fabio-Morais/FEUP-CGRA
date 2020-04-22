@@ -21,7 +21,7 @@ class MyScene extends CGFscene {
         this.enableTextures(true);
 
         this.texture1 = new CGFtexture(this, 'images/cubemap.png');
-        this.texture22 = new CGFtexture(this, 'images/cubemap2.jpg');
+        this.texture22 = new CGFtexture(this, 'images/cubemap2.png');
 
 
         // shader code panels references
@@ -34,6 +34,7 @@ class MyScene extends CGFscene {
         this.vehicle = new MyVehicle(this);
         this.cyl = new MyCylinder(this,50);
         this.materials = new Material(this);
+        this.supply = new MySupply(this);
 
         this.text="";
         this.speedLimit=4;
@@ -48,7 +49,7 @@ class MyScene extends CGFscene {
         this.displayAxis = true;
         this.displayNormals = false;
         this.displayCyl= false;
-        this.displayVei=true;
+        this.displayVei=false;
         this.displayTextures=true;
         this.displaySphere=false;
         this.thirdPerson = false;
@@ -82,7 +83,7 @@ class MyScene extends CGFscene {
         this.lights[0].update();
     }
     initCameras() {
-        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(0, 5, 15), vec3.fromValues(0, 0, 0));
+        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(25, 35, 5), vec3.fromValues(0, 0, 0));
     }
     setDefaultAppearance() {
         this.setAmbient(1, 1, 1, 1.0);
@@ -132,6 +133,12 @@ class MyScene extends CGFscene {
             this.speed=0;
             keysPressed=true;
         }
+        if (this.gui.isKeyPressed("KeyL")) {
+            this.text+="L";
+            this.dropPosition = [this.vehicle.x,this.vehicle.z];
+            this.supply.drop(this.dropPosition);
+            keysPressed=true;
+        }
         console.log("velocidade:" +this.speed);
         if (keysPressed)
             console.log(this.text);
@@ -145,8 +152,9 @@ class MyScene extends CGFscene {
         this.checkKeys();
         this.rotateHelice = t / 100 % 1000;
         this.vehicle.testShaders.setUniformsValues({ timeFactor: ((t) / (100-5*(this.speed*this.speedFactor)) % 8) });
-        console.log("0.1t= "+ (t / 40 % 8))
-        console.log("sin(0.1t)= "+Math.sin(t*0.1))
+        if(this.supply.state===this.supply.SupplyStates.FALLING){
+            this.supply.land()
+        }
         /*
         * 100 ou 50
         * ~100----1
@@ -157,7 +165,7 @@ class MyScene extends CGFscene {
 
     display() {
         if(this.thirdPerson){
-            this.camera.setPosition([(this.vehicle.x+5) - 32 * Math.sin(this.vehicle.angle) , this.vehicle.y+15, this.vehicle.z - 32*Math.cos(this.vehicle.angle)]);
+            this.camera.setPosition([(this.vehicle.x+5) - 32 * Math.sin(this.vehicle.angle) , this.vehicle.y+40, (this.vehicle.z+8) - 25*Math.cos(this.vehicle.angle)]);
             this.camera.setTarget([this.vehicle.x, this.vehicle.y, this.vehicle.z]);
 
         }
@@ -213,5 +221,8 @@ class MyScene extends CGFscene {
             this.popMatrix();
         }
         // ---- END Primitive drawing section
+        this.pushMatrix();
+        this.supply.display();
+        this.popMatrix();
     }
 }
