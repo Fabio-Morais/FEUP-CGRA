@@ -28,7 +28,6 @@ class MyFlag extends CGFobject {
         /*0.02 a 0.6
         * max tem de ser 0.4 nos shaders
         * */
-        console.log("-> "+ speed)
         if(speed > 0.3)
             testShaders.setUniformsValues({ speed: 0.4 });
         else if(speed>0 && speed < 0.1)

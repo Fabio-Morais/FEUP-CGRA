@@ -34,6 +34,7 @@ class MyScene extends CGFscene {
         this.vehicle = new MyVehicle(this);
         this.cyl = new MyCylinder(this,50);
         this.materials = new Material(this);
+        this.terrain = new MyTerrain(this);
 
         this.text="";
         this.speedLimit=4;
@@ -234,6 +235,9 @@ class MyScene extends CGFscene {
             this.popMatrix();
         }
         // ---- END Primitive drawing section
+        this.pushMatrix();
+        this.terrain.display();
+        this.popMatrix();
 
     }
 }

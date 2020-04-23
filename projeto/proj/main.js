@@ -4,7 +4,7 @@ serialInclude=function(a){var b=console,c=serialInclude.l;if(a.length>0)c.splice
 
 serialInclude(['../lib/CGF.js','MyScene.js', 'MyInterface.js', 'formas/MySphere.js',  'formas/MyQuad.js','MyCubeMap.js', 'MyVehicle.js',
     'MyVehicleFormat.js','formas/MyCylinder.js','Material.js', 'formas/MyLeme.js', 'formas/MyUnitCubeQuad.js','formas/MyTriangle.js',
-    'formas/MyMotorHelice.js','formas/MyPlane.js','MyFlag.js','formas/MyUnitCubeQuadOpen.js','MySupply.js',
+    'formas/MyMotorHelice.js','formas/MyPlane.js','MyFlag.js','formas/MyUnitCubeQuadOpen.js','MySupply.js','MyTerrain.js',
 
 main=function()
 {

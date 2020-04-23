@@ -42,7 +42,7 @@ class MyVehicle extends CGFobject {
         this.scene.rotate(this.angle, 0,1,0);
         this.scene.translate(0,10,0);
 
-        this.scene.pushMatrix();
+            this.scene.pushMatrix();
             this.scene.rotate(this.inclina, 1,0,0);
             this.scene.rotate(this.inclinaLados, 0,0,1);
             this.scene.rotate(Math.PI/2, 1,0,0);
@@ -60,6 +60,8 @@ class MyVehicle extends CGFobject {
             this.scene.popMatrix();
             this.scene.setActiveShader(this.scene.defaultShader);
         this.scene.popMatrix();
+
+
         for(this.i=0; this.i<this.nSuppliesDelivered; this.i++){
                 this.scene.pushMatrix();
                 this.supply[this.i].display();
