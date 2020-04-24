@@ -35,6 +35,7 @@ class MyScene extends CGFscene {
         this.cyl = new MyCylinder(this,50);
         this.materials = new Material(this);
         this.terrain = new MyTerrain(this);
+        this.billboard = new MyBillboard(this);
 
         this.text="";
         this.speedLimit=4;
@@ -135,6 +136,35 @@ class MyScene extends CGFscene {
 
             keysPressed=true;
         }
+        if (this.gui.isKeyPressed("KeyP")) {
+            if(!this.vehicle.automaticPilot){
+                this.text+="P";
+                this.oposto= Math.sin(this.vehicle.angle+Math.PI/2)*5;
+                this.adj= Math.cos(this.vehicle.angle+Math.PI/2)*5;
+                /*this.oposto2= Math.sin(this.vehicle.angle-Math.PI/2)*5;
+                this.adj2= Math.cos(this.vehicle.angle-Math.PI/2)*5;
+                if(Math.abs(this.oposto) > Math.abs(this.oposto2)){
+                    this.oposto=this.oposto2;
+                    this.adj = this.adj2;
+                }*/
+
+
+
+                this.vehicle.center = [this.vehicle.x - this.oposto, this.vehicle.z - this.adj];
+                if(this.vehicle.y > this.vehicle.center[1] )
+                    this.start =  - Math.acos((this.vehicle.x-this.vehicle.center[0])/5);
+                else
+                    this.start =  Math.acos((this.vehicle.x -this.vehicle.center[0])/5);
+
+                this.aux=this.start;
+                this.vehicle.automaticPilot=true;
+
+                console.log("START >>>> "+this.start +" coords : "+ this.vehicle.x + "<->"+this.vehicle.z);
+                console.log(this.vehicle.center)
+                keysPressed=true;
+            }
+
+        }
         if (this.gui.isKeyPressed("KeyL")) {
             this.text+="L";
             this.dropPosition = [this.vehicle.x,this.vehicle.z];
@@ -145,7 +175,7 @@ class MyScene extends CGFscene {
             }
             keysPressed=true;
         }
-        console.log("velocidade:" +this.speed);
+        //console.log("velocidade:" +this.speed);
         if (keysPressed)
             console.log(this.text);
         this.vehicle.update(this.text, this.speed*(this.speedFactor/2));
@@ -169,12 +199,20 @@ class MyScene extends CGFscene {
         if( this.vehicle.supplyPointer <4 && this.vehicle.supply[this.vehicle.supplyPointer].state === this.vehicle.supply[this.vehicle.supplyPointer].SupplyStates.LANDED){
             this.vehicle.supplyPointer++;
         }
-        /*
-        * 100 ou 50
-        * ~100----1
-        *  50 -----x
-        * 100 - 10*velocidade
-        * */
+        if(this.vehicle.automaticPilot) {
+            this.vehicle.automatic();
+            this.vehicle.speed=7;
+            this.vehicle.x= Math.cos( this.aux)*5 + this.vehicle.center[0];
+            this.vehicle.z= Math.sin( this.aux)*5 + this.vehicle.center[1];
+            this.vehicle.angle = Math.PI/2 - this.aux - Math.PI/2;
+            this.aux+=0.0628;
+                console.log( this.aux  );
+                console.log("x= "+ (this.vehicle.x ));
+                console.log("z= "+ (this.vehicle.z ));
+                if(this.aux >= this.start + 6.28)
+                    this.vehicle.automaticPilot = false;
+        }
+
     }
 
     display() {
@@ -183,6 +221,7 @@ class MyScene extends CGFscene {
             this.camera.setTarget([this.vehicle.x, this.vehicle.y, this.vehicle.z]);
 
         }
+
         // ---- BEGIN Background, camera and axis setup
         // Clear image and depth buffer everytime we update the scene
         this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height);
@@ -206,10 +245,15 @@ class MyScene extends CGFscene {
         // ---- BEGIN Primitive drawing section
 
         //This sphere does not have defined texture coordinates
-        if(this.displaySphere){
+
+   /* this.pushMatrix();
+    this.translate(this.vehicle.center[0], 10, this.vehicle.center[1]);
+        this.incompleteSphere.display();
+        this.popMatrix();*/
+        /*if(this.displaySphere){
             this.earth.apply();
             this.incompleteSphere.display();
-        }
+        }*/
 
        if(this.displayVei) {
            this.pushMatrix();
@@ -225,18 +269,22 @@ class MyScene extends CGFscene {
         this.popMatrix();
 
         if (this.displayNormals)
-            this.vehicle.enableNormalViz();
+            this.billboard.enableNormalViz();
         else
-            this.vehicle.disableNormalViz();
+            this.billboard.disableNormalViz();
 
-        if(this.displayCyl){
+       /* if(this.displayCyl){
             this.pushMatrix();
             this.cyl.display();
             this.popMatrix();
-        }
+        }*/
         // ---- END Primitive drawing section
         this.pushMatrix();
-        this.terrain.display();
+        //this.terrain.display();
+        this.popMatrix();
+
+        this.pushMatrix();
+        this.billboard.display();
         this.popMatrix();
 
     }

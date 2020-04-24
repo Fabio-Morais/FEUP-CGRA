@@ -11,6 +11,8 @@ class MyVehicle extends CGFobject {
         this.supply = [new MySupply(this.scene),new MySupply(this.scene),new MySupply(this.scene),new MySupply(this.scene),new MySupply(this.scene) ] ;
         this.supplyPointer=0;
         this.nSuppliesDelivered=0;
+        this.automaticPilot=false;
+        this.center=[0.0,0.0];
 
         this.x=0;
         this.y=0;
@@ -24,6 +26,9 @@ class MyVehicle extends CGFobject {
         this.testShaders = new CGFshader(this.scene.gl, "shaders/water.vert", "shaders/water.frag");
         this.testShaders.setUniformsValues({ uSampler2: 1 });
         this.testShaders.setUniformsValues({ timeFactor: 0 });
+    }
+    automatic(){
+
     }
     enableNormalViz() {
 
@@ -73,31 +78,35 @@ class MyVehicle extends CGFobject {
     }
 
     update(key, speed) {
-        this.speed=speed/10;
-        this.z += this.speed*Math.cos(this.angle);
-        this.x += this.speed*Math.sin(this.angle);
-        this.inclina=0;
-        this.inclinaLados=0;
-        for (var i=0; i<key.length; i++){
-            this.rotate=0;
-            if (key.charAt(i) == 'W') {
-                this.inclina = Math.PI / 200;
-            }
-            if (key.charAt(i) == 'S') {
-                if(this.speed>0)
-                    this.inclina = -Math.PI / 200;
-            }
-        if (key.charAt(i) == 'A') {
-            this.angle += 0.5*(this.speed+0.05);
-            this.rotate=Math.PI/14;
-            this.inclinaLados=-Math.PI / 80;
-        }
-        if (key.charAt(i) == 'D') {
-            this.angle -= 0.5*(this.speed+0.05);
-            this.rotate=-Math.PI/14;
-            this.inclinaLados=Math.PI / 80;
+        if(!this.automaticPilot){
+            this.speed=speed/10;
+            this.z += this.speed*Math.cos(this.angle);
+            this.x += this.speed*Math.sin(this.angle);
+            this.inclina=0;
+            this.inclinaLados=0;
+            for (var i=0; i<key.length; i++){
+                this.rotate=0;
+                if (key.charAt(i) === 'W') {
+                    this.inclina = Math.PI / 200;
+                }
+                if (key.charAt(i) === 'S') {
+                    if(this.speed>0)
+                        this.inclina = -Math.PI / 200;
+                }
+                if (key.charAt(i) === 'A') {
+                    this.angle += 0.5*(this.speed+0.05);
+                    this.rotate=Math.PI/14;
+                    this.inclinaLados=-Math.PI / 80;
+                }
+                if (key.charAt(i) === 'D') {
+                    this.angle -= 0.5*(this.speed+0.05);
+                    this.rotate=-Math.PI/14;
+                    this.inclinaLados=Math.PI / 80;
 
+                }
+                console.log("angle: "+ this.angle)
         }
+
 
 
     }

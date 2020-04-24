@@ -49,6 +49,25 @@ class MyPlane extends CGFobject{
 		this.primitiveType = this.scene.gl.TRIANGLE_STRIP;
 		this.initGLBuffers();
 	}
+	invertText(){
+		this.texCoords=[];
+		for (var j = this.nrDivs; j >= 0; j--) {
+			for (var i = 0; i <= this.nrDivs; i++) {
+				this.texCoords.push((this.minS + i * this.q),(this.minT + j * this.w));
+
+			}
+		}
+		this.updateTexCoordsGLBuffers();
+	}
+	originalText(){
+		this.texCoords=[];
+		for (var j = 0; j <= this.nrDivs; j++) {
+			for (var i = 0; i <= this.nrDivs; i++) {
+				this.texCoords.push((this.minS + i * this.q),(this.minT + j * this.w));
+			}
+		}
+		this.updateTexCoordsGLBuffers();
+	}
 
 	setFillMode() { 
 		this.primitiveType=this.scene.gl.TRIANGLE_STRIP;
