@@ -50,25 +50,24 @@ class MySupply extends CGFobject {
         this.z=dropPosition[1];
         this.state = this.SupplyStates.FALLING
     }
-    land(){
+    land(scale){
         if(this.y<=0 && this.SupplyStates.FALLING){
             this.state= this.SupplyStates.LANDED;
         }else
-            this.y-=0.5; // 50ms * 7.5 /32 = 0.1416666667
+            this.y-=0.1416666666667*scale; // 50ms * 8.5 /3s = 0.1416666667, está em numero para ter performance melhor
 
     }
 
     display() {
-        //console.log(this.x+"-"+this.y+"-"+this.z+ " ---> "+ this.state)
-        if(this.state == this.SupplyStates.FALLING){
-            this.close.apply()
+        if(this.state === this.SupplyStates.FALLING){
+            this.close.apply();
             this.scene.pushMatrix();
             this.scene.translate(this.x,this.y, this.z);
             this.boxClose.display();
             this.scene.popMatrix();
-        } else if(this.state == this.SupplyStates.LANDED){
+        } else if(this.state === this.SupplyStates.LANDED){
 
-            this.open.apply()
+            this.open.apply();
             this.scene.pushMatrix();
             this.scene.translate(this.x,this.y+0.1, this.z);
             this.boxOpen.display();

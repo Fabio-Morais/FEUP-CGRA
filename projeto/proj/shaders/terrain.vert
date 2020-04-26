@@ -17,7 +17,7 @@ void main() {
 
 
 	vec4 filterr = texture2D(uSampler2, vTextureCoord);
-		filterr.r = filterr.r*0.3;
+		filterr.r = filterr.r*0.35;
 	offset=vec3(0.0, 0, filterr.r);
 
 	gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition+offset, 1.0);

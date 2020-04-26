@@ -9,7 +9,7 @@ class MyBillboard extends CGFobject {
     constructor(scene) {
         super(scene);
         this.plane = new MyPlane(this.scene, 20);
-        this.rectangle = new MyPlane(this.scene, 20);
+        this.rectangle = new MyPlane(this.scene, 30);
         this.base = new MyCylinder(this.scene, 30);
         this.initMaterials();
 
@@ -20,31 +20,31 @@ class MyBillboard extends CGFobject {
         this.appearance.loadTexture('images/supplies.png');
         this.appearance.setTextureWrap('WARM', 'WARM');
         this.appearance.setAmbient(1, 1, 1, 1);
-        this.appearance.setDiffuse(0.7, 0.7, 0.7, 1);
-        this.appearance.setSpecular(0.0, 0.0, 0.0, 1);
+        this.appearance.setDiffuse(1.0,1.0,1.0, 1);
+        this.appearance.setSpecular(1,1,1, 1);
         this.appearance.setShininess(120);
 
         this.appearance2 = new CGFappearance(this.scene);
-        this.appearance2.loadTexture('images/oak.jpg');
+        this.appearance2.loadTexture('images/box2.jpg');
         this.appearance2.setTextureWrap('WARM', 'WARM');
         this.appearance2.setAmbient(1, 1, 1, 1);
-        this.appearance2.setDiffuse(0.7, 0.7, 0.7, 1);
-        this.appearance2.setSpecular(0.0, 0.0, 0.0, 1);
+        this.appearance2.setDiffuse(1.0, 1.0, 1.0, 1);
+        this.appearance2.setSpecular(1.0,1.0,1.0, 1);
         this.appearance2.setShininess(120);
-        this.texture2 = new CGFtexture(this.scene, "images/heightmap.jpg");
 
-        this.testShaders = new CGFshader(this.scene.gl, "shaders/terrain.vert", "shaders/terrain.frag");
-        this.testShaders.setUniformsValues({ uSampler2: 1 })
+        this.testShaders = new CGFshader(this.scene.gl, "shaders/billboard.vert", "shaders/billboard.frag");
 
 
     }
-
-
+    update(nSuppliesDelivered){
+        this.percOfSupplies=nSuppliesDelivered / 5.0 * 100.0;
+    }
 
     display() {
 
         this.appearance.apply();
-
+    this.scene.pushMatrix();
+    this.scene.translate(0,1.5,0);
         this.scene.pushMatrix();
         this.scene.scale(2,1,1)
         this.plane.display();
@@ -59,12 +59,16 @@ class MyBillboard extends CGFobject {
         this.plane.display();
         this.scene.popMatrix();
 
+        this.scene.setActiveShader(this.testShaders);
+        this.testShaders.setUniformsValues({percOfSupplies: this.percOfSupplies});
+
         //retangulo a mudar
         this.scene.pushMatrix();
         this.scene.scale(1.5,0.2,1);
         this.scene.translate(0,0,0.01);
         this.rectangle.display();
         this.scene.popMatrix();
+        this.scene.setActiveShader(this.scene.defaultShader);
 
         //Bases
         this.scene.pushMatrix();
@@ -79,6 +83,7 @@ class MyBillboard extends CGFobject {
         this.base.display();
         this.scene.popMatrix();
 
+        this.scene.popMatrix();
 
     }
 

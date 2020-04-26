@@ -32,12 +32,12 @@
     <property name="settings.editor.selected.configurable" value="vcs.Git" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\fabio\Documents\GitHub\FEUP-CGRA\projeto\proj" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\fabio\Documents\GitHub\FEUP-CGRA\projeto\proj\formas" />
       <recent name="C:\Users\fabio\Documents\GitHub\FEUP-CGRA\projeto\proj\shaders" />
+      <recent name="C:\Users\fabio\Documents\GitHub\FEUP-CGRA\projeto\proj" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\fabio\Documents\GitHub\FEUP-CGRA\projeto\proj" />
     </key>
   </component>
@@ -72,7 +72,8 @@
       <workItem from="1587586902507" duration="9052000" />
       <workItem from="1587629310632" duration="27629000" />
       <workItem from="1587720435329" duration="7058000" />
-      <workItem from="1587755318254" duration="10111000" />
+      <workItem from="1587755318254" duration="10207000" />
+      <workItem from="1587805882541" duration="26729000" />
     </task>
     <servers />
   </component>
@@ -94,6 +95,18 @@
       <screen x="0" y="0" width="1366" height="728" />
     </state>
     <state x="492" y="280" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1366.728/1366.0.1366.728@0.0.1366.728" timestamp="1584744429461" />
+    <state x="1458" y="92" width="1182" height="544" key="dock-window-1" timestamp="1587810891045">
+      <screen x="1366" y="0" width="1366" height="728" />
+    </state>
+    <state x="1458" y="92" width="1182" height="544" key="dock-window-1/0.0.1366.728/1366.0.1366.728@1366.0.1366.728" timestamp="1587810891045" />
+    <state x="1458" y="92" width="1182" height="544" key="dock-window-2" timestamp="1587810891046">
+      <screen x="1366" y="0" width="1366" height="728" />
+    </state>
+    <state x="1458" y="92" width="1182" height="544" key="dock-window-2/0.0.1366.728/1366.0.1366.728@1366.0.1366.728" timestamp="1587810891046" />
+    <state x="1458" y="92" width="1182" height="544" key="dock-window-3" timestamp="1587810891046">
+      <screen x="1366" y="0" width="1366" height="728" />
+    </state>
+    <state x="1458" y="92" width="1182" height="544" key="dock-window-3/0.0.1366.728/1366.0.1366.728@1366.0.1366.728" timestamp="1587810891046" />
     <state x="1718" y="0" width="661" height="728" key="find.popup" timestamp="1587342170396">
       <screen x="1366" y="0" width="1366" height="728" />
     </state>
@@ -103,10 +116,22 @@
       <screen x="1366" y="0" width="1366" height="728" />
     </state>
     <state x="1705" y="162" width="672" height="677" key="run.anything.popup/0.0.1366.728/1366.0.1366.728@1366.0.1366.728" timestamp="1587770024402" />
-    <state x="1712" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1587687476443">
-      <screen x="1366" y="0" width="1366" height="728" />
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup" timestamp="1587857767797">
+      <screen x="0" y="0" width="1366" height="728" />
     </state>
-    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728/1366.0.1366.728@0.0.1366.728" timestamp="1587058952460" />
+    <state x="346" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728/1366.0.1366.728@0.0.1366.728" timestamp="1587857767797" />
     <state x="1712" y="49" width="672" height="678" key="search.everywhere.popup/0.0.1366.728/1366.0.1366.728@1366.0.1366.728" timestamp="1587687476443" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/projeto/proj/MyVehicle.js</url>
+          <line>93</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

@@ -18,28 +18,44 @@ class MyVehicleFormat extends CGFobject {
         this.gondola.initBuffers();
         this.gondolaBody.initBuffers();
 
-        this.marble = new CGFappearance(this.scene);
-        this.marble.setAmbient(1, 1, 1, 1);
-        this.marble.setDiffuse(1, 1, 1, 1);
-        this.marble.setSpecular(0, 0, 0, 1);
-        this.marble.setShininess(10.0);
-        this.marble.loadTexture('images/nazi.png');
-        this.marble.setTextureWrap('REPEAT', 'REPEAT');
+        this.body = new CGFappearance(this.scene);
+        this.body.setAmbient(1, 1, 1, 1);
+        this.body.setDiffuse(1, 1, 1, 1);
+        this.body.setSpecular(0, 0, 0, 1);
+        this.body.setShininess(10.0);
+        this.body.loadTexture('images/bodyAirship.jpg');
+        this.body.setTextureWrap('REPEAT', 'REPEAT');
 
-        this.marble2 = new CGFappearance(this.scene);
-        this.marble2.setAmbient(1, 1, 1, 1);
-        this.marble2.setDiffuse(1, 1, 1, 1);
-        this.marble2.setSpecular(0, 0, 0, 1);
-        this.marble2.setShininess(10.0);
+        this.components = new CGFappearance(this.scene);
+        this.components.setAmbient(1, 1, 1, 1);
+        this.components.setDiffuse(1, 1, 1, 1);
+        this.components.setSpecular(0, 0, 0, 1);
+        this.components.setShininess(10.0);
+        this.components.loadTexture('images/componentAirship.jpg');
+        this.components.setTextureWrap('REPEAT', 'REPEAT');
+
+
+        this.components2 = new CGFappearance(this.scene);
+        this.components2.setAmbient(1, 1, 1, 1);
+        this.components2.setDiffuse(1, 1, 1, 1);
+        this.components2.setSpecular(0, 0, 0, 1);
+        this.components2.setShininess(10.0);
+        this.components2.loadTexture('images/component2Airship.jpg');
+        this.components2.setTextureWrap('REPEAT', 'REPEAT');
+
+        this.default = new CGFappearance(this.scene);
+        this.default.setAmbient(1, 1, 1, 1);
+        this.default.setDiffuse(1, 1, 1, 1);
+        this.default.setSpecular(0, 0, 0, 1);
+        this.default.setShininess(10.0);
 
     }
 
     gondolaDisp() {
-
+        this.components2.apply()
         this.scene.pushMatrix();
         this.scene.translate(0, -0.25, 1);
         this.scene.scale(0.4, 0.6, 0.30);
-        this.marble2.apply();
         this.gondolaBody.display();
         this.scene.popMatrix();
 
@@ -57,6 +73,7 @@ class MyVehicleFormat extends CGFobject {
     }
 
     helices(speed) {
+        this.default.apply();
 
         this.scene.pushMatrix();
         this.scene.translate(-0.2, -0.6, 1.1);
@@ -75,6 +92,7 @@ class MyVehicleFormat extends CGFobject {
     }
 
     lemes(rotate) {
+        this.components.apply();
         this.scene.pushMatrix();
         this.scene.translate(0.9, -1.7, 0);
         this.lemesEsquerda.display();
@@ -106,7 +124,7 @@ class MyVehicleFormat extends CGFobject {
 
         this.scene.pushMatrix();
         this.scene.scale(1, 2, 1);
-        this.marble.apply();
+        this.body.apply();
         this.airship.display();
         this.scene.popMatrix();
         this.gondolaDisp();

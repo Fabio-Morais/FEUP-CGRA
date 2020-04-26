@@ -12,7 +12,7 @@ class MyFlag extends CGFobject {
 
         this.appearance = new CGFappearance(this.scene);
 
-        this.appearance.loadTexture('images/portugal.jpg');
+        this.appearance.loadTexture('images/flag.jpg');
         this.appearance.setTextureWrap('REPEAT', 'REPEAT');
 
     }
