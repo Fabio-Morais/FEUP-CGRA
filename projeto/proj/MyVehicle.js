@@ -35,7 +35,7 @@ class MyVehicle extends CGFobject {
     display(rotateHelice, displayVei, scaleFactor) {
         if (displayVei) {
             this.scene.pushMatrix();
-            this.scene.translate(this.x, this.y, this.z);
+            //this.scene.translate(this.x, this.y, this.z);
             this.scene.rotate(this.angle, 0, 1, 0);
             this.scene.translate(0, 10, 0);
             this.scene.scale(scaleFactor,scaleFactor,scaleFactor);
@@ -44,7 +44,7 @@ class MyVehicle extends CGFobject {
             this.scene.rotate(this.inclina, 1, 0, 0);
             this.scene.rotate(this.inclinaLados, 0, 0, 1);
             this.scene.rotate(Math.PI / 2, 1, 0, 0);
-            this.vehic.display(this.rotate, this.speed * (rotateHelice * 10));
+            this.vehic.display(this.rotate, this.speed * (rotateHelice * 5));
             this.scene.popMatrix();
 
 
@@ -136,7 +136,7 @@ class MyVehicle extends CGFobject {
             }
 
             if(Math.abs(this.x)>24.5 || Math.abs(this.z)>24.5){
-                this.angle = this.angle - Math.PI/2;
+                //this.angle = this.angle - Math.PI/2;
             }
         }
     }

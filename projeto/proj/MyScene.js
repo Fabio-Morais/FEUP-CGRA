@@ -164,7 +164,7 @@ class MyScene extends CGFscene {
             this.lastUpdate = t;
         var elapsedTime = t - this.lastUpdate;
         this.lastUpdate = t;
-
+        this.rotateHelice = t / 100 % 1000;
         this.checkKeys();
         this.vehicle.update(t, this.speedFactor, elapsedTime);
         this.billboard.update(this.vehicle.nSuppliesDelivered);
