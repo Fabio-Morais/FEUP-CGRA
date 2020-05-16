@@ -41,8 +41,11 @@ class MySupply extends CGFobject {
     }
 
     //update position of box when is falling
-    update(){
-
+    update(scale){
+        if(this.y<=0 && this.SupplyStates.FALLING){
+            this.land();
+        }else
+            this.y-=0.1416666666667*scale; // 50ms * 8.5 /3s = 0.1416666667, está em numero para ter performance melhor
     }
     drop(dropPosition){
         this.x=dropPosition[0]
@@ -50,12 +53,8 @@ class MySupply extends CGFobject {
         this.z=dropPosition[1];
         this.state = this.SupplyStates.FALLING
     }
-    land(scale){
-        if(this.y<=0 && this.SupplyStates.FALLING){
-            this.state= this.SupplyStates.LANDED;
-        }else
-            this.y-=0.1416666666667*scale; // 50ms * 8.5 /3s = 0.1416666667, está em numero para ter performance melhor
-
+    land(){
+        this.state= this.SupplyStates.LANDED;
     }
 
     display() {

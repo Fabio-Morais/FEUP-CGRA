@@ -35,16 +35,16 @@ class MyVehicle extends CGFobject {
     display(rotateHelice, displayVei, scaleFactor) {
         if (displayVei) {
             this.scene.pushMatrix();
-            //this.scene.translate(this.x, this.y, this.z);
+            this.scene.translate(this.x, this.y, this.z);
             this.scene.rotate(this.angle, 0, 1, 0);
             this.scene.translate(0, 10, 0);
-            this.scene.scale(scaleFactor,scaleFactor,scaleFactor);
+            this.scene.scale(scaleFactor, scaleFactor, scaleFactor);
 
             this.scene.pushMatrix();
             this.scene.rotate(this.inclina, 1, 0, 0);
             this.scene.rotate(this.inclinaLados, 0, 0, 1);
             this.scene.rotate(Math.PI / 2, 1, 0, 0);
-            this.vehic.display(this.rotate, this.speed * (rotateHelice * 5));
+            this.vehic.display(this.rotate, this.speed * 1.2 * (rotateHelice * 5));
             this.scene.popMatrix();
 
 
@@ -63,17 +63,18 @@ class MyVehicle extends CGFobject {
 
         for (this.i = 0; this.i < this.nSuppliesDelivered; this.i++) {
             this.scene.pushMatrix();
-            console.log("["+this.i+"] - "+ this.supply[this.i].state)
+            console.log("[" + this.i + "] - " + this.supply[this.i].state)
             this.supply[this.i].display();
             this.scene.popMatrix();
 
 
         }
     }
-    update(t,speedFactor, elapsedTime){
+
+    update(t, speedFactor, elapsedTime) {
         this.testShaders.setUniformsValues({timeFactor: ((t) / (100 - 5 * (this.speed * speedFactor)) % 8)});
         if (this.supply[this.supplyPointer].state === this.supply[this.supplyPointer].SupplyStates.FALLING) {
-            this.supply[this.supplyPointer].land((elapsedTime / 50));
+            this.supply[this.supplyPointer].update((elapsedTime / 50));
         }
 
         if (this.supplyPointer < 4 && this.supply[this.supplyPointer].state === this.supply[this.supplyPointer].SupplyStates.LANDED) {
@@ -85,31 +86,31 @@ class MyVehicle extends CGFobject {
             this.z = Math.sin(this.aux) * 5 + this.center[1];
             this.angle = Math.PI / 2 - this.aux - Math.PI / 2;
             this.aux += 0.0628 * (elapsedTime / 50);//2Pi * 50ms /5s = 0.062832
-
-            if (this.aux >= this.start + 6.28){
-                this.automaticPilot = false;
-                this.speed=0;
-            }
+        }else{
+            this.z += this.speed * Math.cos(this.angle);
+            this.x += this.speed * Math.sin(this.angle);
         }
+        console.log("x: "+this.x + " y: "+this.y+ " z: "+this.z);
     }
-    turn(val){
-        if(val>0){
+
+    turn(val) {
+        if (val > 0) {
             this.angle += 0.5 * (this.speed + 0.05);
             this.rotate = Math.PI / 14;
             this.inclinaLados = -Math.PI / 80;
-        }else{
+        } else {
             this.angle -= 0.5 * (this.speed + 0.05);
             this.rotate = -Math.PI / 14;
             this.inclinaLados = Math.PI / 80;
         }
     }
-    accelerate(val){
+
+    accelerate(val) {
         this.speed = val / 10;
     }
+
     updateValues(key, speed) {
         if (!this.automaticPilot) {
-            this.z += this.speed * Math.cos(this.angle);
-            this.x += this.speed * Math.sin(this.angle);
             this.inclina = 0;
             this.inclinaLados = 0;
             this.accelerate(speed);
@@ -135,8 +136,8 @@ class MyVehicle extends CGFobject {
                 console.log("angle: " + this.angle)
             }
 
-            if(Math.abs(this.x)>24.5 || Math.abs(this.z)>24.5){
-                //this.angle = this.angle - Math.PI/2;
+            if (Math.abs(this.x) > 24.5 || Math.abs(this.z) > 24.5) {
+                this.angle = this.angle - Math.PI / 2;
             }
         }
     }
@@ -146,15 +147,16 @@ class MyVehicle extends CGFobject {
         this.y = 0;
         this.z = 0;
         this.angle = 0;
-        this.automaticPilot=false;
-        this.speed=0;
+        this.automaticPilot = false;
+        this.speed = 0;
         for (this.i = 0; this.i < 5; this.i++) {
             this.supply[this.i].state = 0;
         }
         this.nSuppliesDelivered = 0;
         this.supplyPointer = 0;
     }
-    toAutomaticPilot(){
+
+    toAutomaticPilot() {
         if (!this.automaticPilot) {
             this.oposto = Math.sin(this.angle + Math.PI / 2) * 5;
             this.adj = Math.cos(this.angle + Math.PI / 2) * 5;
@@ -170,6 +172,7 @@ class MyVehicle extends CGFobject {
 
         }
     }
+
     enableNormalViz() {
         this.vehic.enableNormalViz();
 

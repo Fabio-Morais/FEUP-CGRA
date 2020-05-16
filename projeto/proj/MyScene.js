@@ -27,6 +27,7 @@ class MyScene extends CGFscene {
         //Initialize scene objects
         this.axis = new CGFaxis(this);
         this.skybox = new MyCubeMap(this);
+        this.teste =  new MyCubeMap(this);
         this.vehicle = new MyVehicle(this);
         this.materials = new Material(this);
         this.terrain = new MyTerrain(this);
@@ -71,7 +72,7 @@ class MyScene extends CGFscene {
 
     initLights() {
         this.lights[0].setPosition(15, 2, 5, 1);
-        this.lights[0].setAmbient(1.0,1.0,1.0,1.0);
+        this.lights[0].setAmbient(1.0, 1.0, 1.0, 1.0);
         this.lights[0].setDiffuse(0, 0, 0, 1.0);
         this.lights[0].setSpecular(0, 0, 0, 1.0);
         this.lights[0].enable();
@@ -132,7 +133,8 @@ class MyScene extends CGFscene {
             }
 
         }
-        if (this.gui.isKeyPressed("KeyL")) {
+        if (this.gui.isKeyPressed("KeyL") && !this.vehicle.automaticPilot) {
+
             this.text += "L";
             this.dropPosition = [this.vehicle.x, this.vehicle.z];
             if (this.vehicle.supply[this.vehicle.supplyPointer].state === this.vehicle.supply[this.vehicle.supplyPointer].SupplyStates.INACTIVE) {
@@ -204,8 +206,8 @@ class MyScene extends CGFscene {
 
         this.pushMatrix();
         this.skybox_day.apply();
-       // this.translate(0, 24, 0);
-        this.translate(0,0,0);
+        // this.translate(0, 24, 0);
+        this.translate(0, 0, 0);
         this.scale(50, 50, 50);
         this.skybox.display();
         this.popMatrix();
@@ -218,7 +220,7 @@ class MyScene extends CGFscene {
 
         // ---- END Primitive drawing section
         this.pushMatrix();
-        this.translate(0,-0.05,0);
+        this.translate(0, -0.05, 0);
         this.terrain.display();
         this.popMatrix();
 
@@ -226,5 +228,9 @@ class MyScene extends CGFscene {
         this.billboard.display();
         this.popMatrix();
 
+       /* this.pushMatrix();
+        this.translate(this.vehicle.center[0], 10, this.vehicle.center[1])
+        this.teste.display();
+        this.popMatrix();*/
     }
 }

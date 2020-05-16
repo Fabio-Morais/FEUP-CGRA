@@ -7,7 +7,7 @@ class MyVehicleFormat extends CGFobject {
         super(scene);
         this.airship = new MySphere(scene, 20, 30);
         this.gondola = new MySphere(scene, 20, 30);
-        this.gondolaBody = new MyCylinder(scene, 20, 1);
+        this.gondolaBody = new MyCylinder(scene, 20, 1,0.5);
         this.lemesEsquerda = new MyLeme(scene);
         this.lemesDireita = new MyLeme(scene);
         this.lemesCima = new MyLeme(scene);
