@@ -71,8 +71,9 @@ class MyScene extends CGFscene {
 
     initLights() {
         this.lights[0].setPosition(15, 2, 5, 1);
-        this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
-        this.lights[0].setSpecular(1.0, 1.0, 1.0, 1.0);
+        this.lights[0].setAmbient(1.0,1.0,1.0,1.0);
+        this.lights[0].setDiffuse(0, 0, 0, 1.0);
+        this.lights[0].setSpecular(0, 0, 0, 1.0);
         this.lights[0].enable();
         this.lights[0].update();
     }
@@ -140,6 +141,7 @@ class MyScene extends CGFscene {
             }
             keysPressed = true;
         }
+        console.log(this.text)
         this.vehicle.updateValues(this.text, this.speed * (this.speedFactor / 2));
         this.text = "";
     }
@@ -158,7 +160,7 @@ class MyScene extends CGFscene {
 
     // called periodically (as per setUpdatePeriod() in init())
     update(t) {
-        if (this.lastUpdate == 0)
+        if (this.lastUpdate === 0)
             this.lastUpdate = t;
         var elapsedTime = t - this.lastUpdate;
         this.lastUpdate = t;
@@ -202,7 +204,8 @@ class MyScene extends CGFscene {
 
         this.pushMatrix();
         this.skybox_day.apply();
-        this.translate(0, 24, 0);
+       // this.translate(0, 24, 0);
+        this.translate(0,0,0);
         this.scale(50, 50, 50);
         this.skybox.display();
         this.popMatrix();
@@ -215,6 +218,7 @@ class MyScene extends CGFscene {
 
         // ---- END Primitive drawing section
         this.pushMatrix();
+        this.translate(0,-5,0);
         this.terrain.display();
         this.popMatrix();
 

@@ -69,7 +69,7 @@ class MySupply extends CGFobject {
 
             this.open.apply();
             this.scene.pushMatrix();
-            this.scene.translate(this.x,this.y+0.1, this.z);
+            this.scene.translate(this.x,this.y+0.2, this.z);
             this.boxOpen.display();
             this.scene.popMatrix();
 

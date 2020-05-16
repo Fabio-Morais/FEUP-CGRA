@@ -63,6 +63,7 @@ class MyVehicle extends CGFobject {
 
         for (this.i = 0; this.i < this.nSuppliesDelivered; this.i++) {
             this.scene.pushMatrix();
+            console.log("["+this.i+"] - "+ this.supply[this.i].state)
             this.supply[this.i].display();
             this.scene.popMatrix();
 
@@ -84,16 +85,31 @@ class MyVehicle extends CGFobject {
             this.x = Math.cos(this.aux) * 5 + this.center[0];
             this.z = Math.sin(this.aux) * 5 + this.center[1];
             this.angle = Math.PI / 2 - this.aux - Math.PI / 2;
-            console.log(this.start);
             this.aux += 0.0628 * (elapsedTime / 50);//2Pi * 50ms /5s = 0.062832
 
-            if (this.aux >= this.start + 6.28)
+            if (this.aux >= this.start + 6.28){
                 this.automaticPilot = false;
+                this.speed=0;
+            }
         }
+    }
+    turn(val){
+        if(val>0){
+            this.angle += 0.5 * (this.speed + 0.05);
+            this.rotate = Math.PI / 14;
+            this.inclinaLados = -Math.PI / 80;
+        }else{
+            this.angle -= 0.5 * (this.speed + 0.05);
+            this.rotate = -Math.PI / 14;
+            this.inclinaLados = Math.PI / 80;
+        }
+    }
+    accelerate(val){
+        this.speed = val / 10;
+        this.inclina = Math.PI / 200;
     }
     updateValues(key, speed) {
         if (!this.automaticPilot) {
-            this.speed = speed / 10;
             this.z += this.speed * Math.cos(this.angle);
             this.x += this.speed * Math.sin(this.angle);
             this.inclina = 0;
@@ -101,21 +117,21 @@ class MyVehicle extends CGFobject {
             for (var i = 0; i < key.length; i++) {
                 this.rotate = 0;
                 if (key.charAt(i) === 'W') {
-                    this.inclina = Math.PI / 200;
+                    this.accelerate(speed);
                 }
                 if (key.charAt(i) === 'S') {
                     if (this.speed > 0)
                         this.inclina = -Math.PI / 200;
+                    this.accelerate(speed);
+
                 }
                 if (key.charAt(i) === 'A') {
-                    this.angle += 0.5 * (this.speed + 0.05);
-                    this.rotate = Math.PI / 14;
-                    this.inclinaLados = -Math.PI / 80;
+                    this.turn(1);
+
                 }
                 if (key.charAt(i) === 'D') {
-                    this.angle -= 0.5 * (this.speed + 0.05);
-                    this.rotate = -Math.PI / 14;
-                    this.inclinaLados = Math.PI / 80;
+                    this.turn(-1);
+
 
                 }
 
@@ -133,6 +149,8 @@ class MyVehicle extends CGFobject {
         this.y = 0;
         this.z = 0;
         this.angle = 0;
+        this.automaticPilot=false;
+        this.speed=0;
         for (this.i = 0; this.i < 5; this.i++) {
             this.supply[this.i].state = 0;
         }
