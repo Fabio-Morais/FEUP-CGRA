@@ -72,7 +72,6 @@ class MyVehicle extends CGFobject {
     }
     update(t,speedFactor, elapsedTime){
         this.testShaders.setUniformsValues({timeFactor: ((t) / (100 - 5 * (this.speed * speedFactor)) % 8)});
-
         if (this.supply[this.supplyPointer].state === this.supply[this.supplyPointer].SupplyStates.FALLING) {
             this.supply[this.supplyPointer].land((elapsedTime / 50));
         }
@@ -106,7 +105,6 @@ class MyVehicle extends CGFobject {
     }
     accelerate(val){
         this.speed = val / 10;
-        this.inclina = Math.PI / 200;
     }
     updateValues(key, speed) {
         if (!this.automaticPilot) {
@@ -114,16 +112,15 @@ class MyVehicle extends CGFobject {
             this.x += this.speed * Math.sin(this.angle);
             this.inclina = 0;
             this.inclinaLados = 0;
+            this.accelerate(speed);
             for (var i = 0; i < key.length; i++) {
                 this.rotate = 0;
                 if (key.charAt(i) === 'W') {
-                    this.accelerate(speed);
+                    this.inclina = Math.PI / 200;
                 }
                 if (key.charAt(i) === 'S') {
                     if (this.speed > 0)
                         this.inclina = -Math.PI / 200;
-                    this.accelerate(speed);
-
                 }
                 if (key.charAt(i) === 'A') {
                     this.turn(1);
