@@ -23,7 +23,7 @@ class MyVehicle extends CGFobject {
         this.t = 0;
         this.texture2 = new CGFtexture(this.scene, "images/waterMap.jpg");
 
-        this.testShaders = new CGFshader(this.scene.gl, "shaders/water.vert", "shaders/water.frag");
+        this.testShaders = new CGFshader(this.scene.gl, "shaders/flag.vert", "shaders/flag.frag");
         this.testShaders.setUniformsValues({uSampler2: 1});
         this.testShaders.setUniformsValues({timeFactor: 0});
     }
@@ -82,13 +82,13 @@ class MyVehicle extends CGFobject {
         }
         if (this.automaticPilot) {
             this.speed = 7;
-            console.log(this.center[0]+" ->"+this.center[1]);
+            console.log(this.center[0] + " ->" + this.center[1]);
             this.x = Math.cos(-this.aux) * 5 + this.center[0];
             this.z = Math.sin(-this.aux) * 5 + this.center[1];
 
             this.angle = Math.PI / 2 + this.aux - Math.PI / 2;
             this.aux -= 0.0628 * (elapsedTime / 50);//2Pi * 50ms /5s = 0.062832
-        }else{
+        } else {
             this.z += this.speed * Math.cos(this.angle);
             this.x += this.speed * Math.sin(this.angle);
         }
@@ -126,15 +126,10 @@ class MyVehicle extends CGFobject {
                 }
                 if (key.charAt(i) === 'A') {
                     this.turn(1);
-
                 }
                 if (key.charAt(i) === 'D') {
                     this.turn(-1);
-
-
                 }
-
-                console.log("angle: " + this.angle)
             }
 
             if (Math.abs(this.x) > 24.5 || Math.abs(this.z) > 24.5) {
@@ -167,22 +162,17 @@ class MyVehicle extends CGFobject {
                 this.start = -Math.acos((this.x - this.center[0]) / 5);
             else
                 this.start = Math.acos((this.x - this.center[0]) / 5);
-
             this.aux = this.start;
-            //console.log('angle '+ this.aux);
-           this.automaticPilot = true;
-
+            this.automaticPilot = true;
         }
     }
 
     enableNormalViz() {
         this.vehic.enableNormalViz();
-
     }
 
     disableNormalViz() {
         this.vehic.disableNormalViz();
-
     }
 
 }

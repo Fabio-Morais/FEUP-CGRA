@@ -120,20 +120,17 @@ class MyScene extends CGFscene {
             this.text += "R";
             this.speed = 0;
             this.vehicle.reset();
-
             keysPressed = true;
         }
         if (this.gui.isKeyPressed("KeyP")) {
             if (!this.vehicle.automaticPilot) {
                 this.text += "P";
                 this.vehicle.toAutomaticPilot();
-
                 keysPressed = true;
             }
 
         }
         if (this.gui.isKeyPressed("KeyL") && !this.vehicle.automaticPilot) {
-
             this.text += "L";
             this.dropPosition = [this.vehicle.x, this.vehicle.z];
             if (this.vehicle.supply[this.vehicle.supplyPointer].state === this.vehicle.supply[this.vehicle.supplyPointer].SupplyStates.INACTIVE) {
@@ -155,7 +152,7 @@ class MyScene extends CGFscene {
 
     // apontar a camera para o veiculo
     seeVehicle() {
-        this.camera.setPosition([(this.vehicle.x - 32 * Math.sin(this.vehicle.angle)), this.vehicle.y + 42, (this.vehicle.z - 32 * Math.cos(this.vehicle.angle))]);
+        this.camera.setPosition([(this.vehicle.x - 42 * Math.sin(this.vehicle.angle)), this.vehicle.y + 42, (this.vehicle.z - 42 * Math.cos(this.vehicle.angle))]);
         this.camera.setTarget([this.vehicle.x, this.vehicle.y, this.vehicle.z]);
     }
 
@@ -175,7 +172,6 @@ class MyScene extends CGFscene {
         if (this.thirdPerson) {
             this.seeVehicle();
         }
-
         // ---- BEGIN Background, camera and axis setup
         // Clear image and depth buffer everytime we update the scene
         this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height);
