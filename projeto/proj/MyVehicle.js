@@ -74,7 +74,7 @@ class MyVehicle extends CGFobject {
     update(t, speedFactor, elapsedTime) {
         this.testShaders.setUniformsValues({timeFactor: ((t) / (100 - 5 * (this.speed * speedFactor)) % 8)});
         if (this.supply[this.supplyPointer].state === this.supply[this.supplyPointer].SupplyStates.FALLING) {
-            this.supply[this.supplyPointer].update((elapsedTime / 50));
+            this.supply[this.supplyPointer].update((elapsedTime / 50)); // /50 porque o update tem ciclo de 50ms
         }
 
         if (this.supplyPointer < 4 && this.supply[this.supplyPointer].state === this.supply[this.supplyPointer].SupplyStates.LANDED) {
@@ -82,15 +82,16 @@ class MyVehicle extends CGFobject {
         }
         if (this.automaticPilot) {
             this.speed = 7;
-            this.x = Math.cos(this.aux) * 5 + this.center[0];
-            this.z = Math.sin(this.aux) * 5 + this.center[1];
-            this.angle = Math.PI / 2 - this.aux - Math.PI / 2;
-            this.aux += 0.0628 * (elapsedTime / 50);//2Pi * 50ms /5s = 0.062832
+            console.log(this.center[0]+" ->"+this.center[1]);
+            this.x = Math.cos(-this.aux) * 5 + this.center[0];
+            this.z = Math.sin(-this.aux) * 5 + this.center[1];
+
+            this.angle = Math.PI / 2 + this.aux - Math.PI / 2;
+            this.aux -= 0.0628 * (elapsedTime / 50);//2Pi * 50ms /5s = 0.062832
         }else{
             this.z += this.speed * Math.cos(this.angle);
             this.x += this.speed * Math.sin(this.angle);
         }
-        console.log("x: "+this.x + " y: "+this.y+ " z: "+this.z);
     }
 
     turn(val) {
@@ -162,13 +163,14 @@ class MyVehicle extends CGFobject {
             this.adj = Math.cos(this.angle + Math.PI / 2) * 5;
 
             this.center = [this.x - this.oposto, this.z - this.adj];
-            if (this.y > this.center[1])
+            if (this.z > this.center[1])
                 this.start = -Math.acos((this.x - this.center[0]) / 5);
             else
                 this.start = Math.acos((this.x - this.center[0]) / 5);
 
             this.aux = this.start;
-            this.automaticPilot = true;
+            //console.log('angle '+ this.aux);
+           this.automaticPilot = true;
 
         }
     }

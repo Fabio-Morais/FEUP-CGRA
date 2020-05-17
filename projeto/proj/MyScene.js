@@ -27,7 +27,6 @@ class MyScene extends CGFscene {
         //Initialize scene objects
         this.axis = new CGFaxis(this);
         this.skybox = new MyCubeMap(this);
-        this.teste =  new MyCubeMap(this);
         this.vehicle = new MyVehicle(this);
         this.materials = new Material(this);
         this.terrain = new MyTerrain(this);
@@ -156,7 +155,7 @@ class MyScene extends CGFscene {
 
     // apontar a camera para o veiculo
     seeVehicle() {
-        this.camera.setPosition([-(this.vehicle.x + 32 * Math.sin(this.vehicle.angle)), this.vehicle.y + 40, -(this.vehicle.z + 32 * Math.cos(this.vehicle.angle))]);
+        this.camera.setPosition([(this.vehicle.x - 32 * Math.sin(this.vehicle.angle)), this.vehicle.y + 42, (this.vehicle.z - 32 * Math.cos(this.vehicle.angle))]);
         this.camera.setTarget([this.vehicle.x, this.vehicle.y, this.vehicle.z]);
     }
 
@@ -206,8 +205,7 @@ class MyScene extends CGFscene {
 
         this.pushMatrix();
         this.skybox_day.apply();
-        // this.translate(0, 24, 0);
-        this.translate(0, 0, 0);
+        this.translate(0, 24, 0);
         this.scale(50, 50, 50);
         this.skybox.display();
         this.popMatrix();
@@ -228,9 +226,6 @@ class MyScene extends CGFscene {
         this.billboard.display();
         this.popMatrix();
 
-       /* this.pushMatrix();
-        this.translate(this.vehicle.center[0], 10, this.vehicle.center[1])
-        this.teste.display();
-        this.popMatrix();*/
+
     }
 }
